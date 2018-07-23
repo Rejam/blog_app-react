@@ -1,19 +1,10 @@
 import { combineReducers } from 'redux';
-import { FETCH_POSTS } from '../actions/types';
-
-const postsReducer = (state = {}, action) => {
-  switch(action.type) {
-    case FETCH_POSTS:
-      return action.payload.data.reduce((obj, item) =>
-        Object.assign(obj, {[item.id]: item})
-      , {})
-    default:
-      return state
-  }
-}
+import { reducer as formReducer } from 'redux-form'
+import PostsReducer from './reducer_posts'
 
 const rootReducer = combineReducers({
-  posts: postsReducer
+  posts: PostsReducer,
+  form: formReducer
 });
 
 export default rootReducer
