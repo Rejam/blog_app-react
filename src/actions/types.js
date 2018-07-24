@@ -1,3 +1,4 @@
 const FETCH_POSTS = "FETCH_POSTS"
+const CREATE_POST = "CREATE_POST"
 
-export { FETCH_POSTS }
+export { FETCH_POSTS, CREATE_POST }

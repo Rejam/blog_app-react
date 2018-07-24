@@ -3,8 +3,11 @@ import axios from 'axios'
 const ROOTURL = "https://reduxblog.herokuapp.com/api/posts"
 const KEY = "rejamblogapp"
 
-const getPosts = () =>
+const api_getPosts = () =>
   axios(`${ ROOTURL}?key=${KEY}`)
 
-export { getPosts }
+const api_createPost = values =>
+  axios.post(`${ ROOTURL}?key=${KEY}`, values)
+
+export { api_getPosts, api_createPost }
 

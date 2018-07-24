@@ -1,9 +1,19 @@
-import { FETCH_POSTS } from './types'
-import { getPosts } from '../api'
+import { FETCH_POSTS, CREATE_POST } from './types'
+import { api_getPosts, api_createPost } from '../api'
 
 const fetchPosts = () => ({
   type: FETCH_POSTS,
-  payload: getPosts()
+  payload: api_getPosts()
 })
 
-export { fetchPosts }
+const createPost = (values, callback) => {
+  const req = api_createPost(values)
+    .then(() => callback())
+
+  return {
+    type: CREATE_POST,
+    payload: req
+  }
+}
+
+export { fetchPosts, createPost }

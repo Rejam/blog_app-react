@@ -1,6 +1,8 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { createPost } from '../actions/index'
 
 // Validation rules
 const validate = values => {
@@ -33,8 +35,11 @@ const formInput = ({ input, meta, label}) => {
 }
 
 const PostsNew = props => {
-  const onSubmit = values => console.log("values", values)
-  const { handleSubmit, reset } = props
+  const { handleSubmit, reset, createPost } = props
+
+  const onSubmit = values => {
+    createPost(values, () => props.history.push('/'))
+  }
     
   return (
     <main>
@@ -58,4 +63,6 @@ const PostsNew = props => {
 export default reduxForm({
   validate,
   form: "newPostForm"
-})(PostsNew)
+})(
+  connect(null, { createPost })(PostsNew)
+)
