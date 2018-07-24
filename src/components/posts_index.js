@@ -15,18 +15,19 @@ class PostsIndex extends React.Component {
         </li>)
 
     return (
-      <div>
-        <div className="text-xs-right">
+      <main>
+        <div className="d-flex justify-content-between mb-2">
+          <h3>Posts</h3>
           <Link
             className="btn btn-primary"
             to="/posts/new">Add a Post
           </Link>
         </div>
-        <h3>Posts</h3>
+
         <ul className="list-group">
           <PostList posts={ this.props.posts } />
         </ul>
-      </div>
+      </main>
     )
   }
 }
