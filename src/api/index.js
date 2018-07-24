@@ -6,4 +6,5 @@ const KEY = "rejamblogapp"
 const getPosts = () =>
   axios(`${ ROOTURL}?key=${KEY}`)
 
-  export { getPosts }
+export { getPosts }
+

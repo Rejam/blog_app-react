@@ -1,29 +1,61 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
 
-const PostsNew = props =>
-<main>
-  <h1>Make a new post</h1>
-  <form>
-    <FormInput name="title" type="text" label="Post Title"/>
-    <FormInput name="categories" type="text" label="Categories"/>
-    <FormInput component="textarea" name="content" type="text" label="Content"/>
-  </form>
-</main>
+// Validation rules
+const validate = values => {
+  const errors = {}
+  errors.title = values.title ? undefined : "Enter a title"
+  errors.content = values.content ? undefined : "Enter some content"
+  
+  return errors
+}
 
-const FormInput = ({ name, type, label, component="input" }) =>
-  <div className="form-group">
-    <label htmlFor={ name }>{ label }</label>
-    <Field
-      className="form-control"
-      id={ name }
-      name={ name }
-      type={ type }
-      component={ component }
-      placeholder={ name }
-    />
-  </div>
+// redux-form input Field creator
+const formInput = ({ input, meta, label}) => {
+  const { error, touched } = meta
+
+  return(
+    <div className={ "form-group"}>
+      <div className="d-flex justify-content-between">
+        <label htmlFor={ input.name }>{ label }</label>
+        <span className="ml-auto text-danger">
+          { touched && (error && <span> { error }</span>) }
+        </span>
+      </div>
+      <input
+        {...input}
+        className={`form-control ${ touched && error && "is-invalid"}`}
+        type="text"
+        id={ input.name } />
+    </div>
+  )
+}
+
+const PostsNew = props => {
+  const onSubmit = values => console.log("values", values)
+  const { handleSubmit, reset } = props
+    
+  return (
+    <main>
+      <form onSubmit={ handleSubmit(onSubmit) } onReset={ reset } >
+      <h1>Make a new post</h1>
+        
+        <Field name="title" label="Post Title" component={formInput} />
+        <Field name="categories" label="Categories" component={formInput} />
+        <Field name="content" label="Content" component={formInput} />
+
+        <div className="d-flex justify-content-between">
+          <Link to="/" className="btn btn-danger">Cancel</Link>
+          <button type="reset"  className="btn btn-outline-secondary">Reset</button>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </main>
+  )
+}
 
 export default reduxForm({
-  form: "PostsNewForm"
+  validate,
+  form: "newPostForm"
 })(PostsNew)
