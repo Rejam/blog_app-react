@@ -1,25 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { showPost, deletePost } from '../actions'
 import { Link } from 'react-router-dom'
+import { showPost, deletePost } from '../actions'
 
 class PostShow extends React.Component {
-
-  componentDidMount() {
-    const { id } = this.props.match.params
-    this.props.showPost(id)
-  }
+  componentDidMount = () =>
+    this.props.showPost(this.props.match.params.id)
 
   deletePost = id =>
     this.props.deletePost(id,
     () => this.props.history.push("/"))
-    
+
   render() {
     const { post } = this.props
     const { id } = this.props.match.params
+
     return (
       <div>
-        <h1>Show a post</h1>
+        <Link to="/">Back</Link>
         {
           !post ?
             <div>Loading...</div>
@@ -30,7 +28,6 @@ class PostShow extends React.Component {
               <p>{post.content}</p>
             </div>
         }
-        <Link to="/" className="btn btn-primary">Back</Link>
         <button
           className="btn btn-danger"
           onClick={ () => this.deletePost(id) }
