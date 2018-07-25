@@ -1,4 +1,4 @@
-import { FETCH_POSTS, SHOW_POST } from '../actions/types'
+import { FETCH_POSTS, SHOW_POST, DELETE_POST } from '../actions/types'
 
 const PostsReducer = (state = {}, action) => {
   switch(action.type) {
