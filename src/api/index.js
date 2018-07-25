@@ -6,8 +6,11 @@ const KEY = "rejamblogapp"
 const api_getPosts = () =>
   axios(`${ ROOTURL}?key=${KEY}`)
 
-const api_createPost = values =>
-  axios.post(`${ ROOTURL}?key=${KEY}`, values)
+const api_showPost = id =>
+  axios(`${ ROOTURL }/${ id }?key=${ KEY }`)
 
-export { api_getPosts, api_createPost }
+const api_createPost = values =>
+  axios.post(`${ ROOTURL}?key=${ KEY }`, values)
+
+export { api_getPosts, api_showPost, api_createPost }
 
